@@ -19,3 +19,9 @@
 
 ### httpTest.py
 Python檢測http代理代碼
+
+### ithomepro.user.js
+优化 IThome 网页端浏览效果
+
+### darkmode.user.js
+本地HTML黑暗模式
