@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         IThome Pro - IT之家高级优化版 2024
-// @version      3.3
+// @version      3.4
 // @description  优化ithome网页端浏览效果
 // @match        https://www.ithome.com/*
 // @run-at       document-start
@@ -28,7 +28,7 @@
     // Stop the interval after 5 seconds
     setTimeout(() => {
         clearInterval(intervalId);
-    }, 5000);
+    }, 1000);
 
     // Redirect from homepage to blog page
     if (window.location.href === 'https://www.ithome.com/') {
