@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         IThome Pro - IT之家高级优化版 2024
-// @version      3.2
+// @version      3.3
 // @description  优化ithome网页端浏览效果
 // @match        https://www.ithome.com/*
 // @run-at       document-start
@@ -85,42 +85,42 @@
 
         if (image.closest('a.img')) {
             const anchor = image.closest('a.img');
-            if (!anchor.classList.contains('processed')) { // 检查是否已经处理过
+            if (!anchor.classList.contains('processed')) {
                 anchor.style.border = '3px solid #CCC';
                 anchor.style.borderRadius = '12px';
                 anchor.style.display = 'inline-block';
                 anchor.style.overflow = 'hidden';
-                anchor.classList.add('processed'); // 标记为已处理
+                anchor.classList.add('processed');
             }
         } else if (image.closest('.ithome_super_player')) {
             const videoPlayer = image.closest('.ithome_super_player');
-            if (!videoPlayer.parentNode.classList.contains('processed')) { // 检查是否已经处理过
+            if (!videoPlayer.parentNode.classList.contains('processed')) {
                 const wrapper = document.createElement('div');
                 wrapper.style.border = '3px solid #CCC';
                 wrapper.style.borderRadius = '12px';
                 wrapper.style.overflow = 'hidden';
-                wrapper.style.maxWidth = '100%';  // 设置最大宽度为100%
+                wrapper.style.maxWidth = '100%';
                 wrapper.style.display = 'block';
                 wrapper.style.margin = '0 auto';
-                wrapper.classList.add('processed'); // 标记为已处理
+                wrapper.classList.add('processed');
                 videoPlayer.parentNode.insertBefore(wrapper, videoPlayer);
                 wrapper.appendChild(videoPlayer);
 
                 // 设置预览图根据父元素高度调整
                 const img = videoPlayer.querySelector('img');
                 if (img) {
-                    const imgWidth = img.getAttribute('w'); // 获取图片的宽度属性
-                    const imgHeight = img.getAttribute('h'); // 获取图片的高度属性
+                    const imgWidth = img.getAttribute('w');
+                    const imgHeight = img.getAttribute('h');
                     const parentHeight = wrapper.offsetHeight;
 
                     if (imgWidth > wrapper.offsetWidth) {
                         const aspectRatio = imgWidth / imgHeight;
-                        img.style.height = `${parentHeight}px`; // 高度匹配父元素高度
-                        img.style.width = `${parentHeight * aspectRatio}px`; // 根据高度和宽高比自动调整宽度
-                        img.style.objectFit = 'cover'; // 确保图片覆盖整个区域
+                        img.style.height = `${parentHeight}px`;
+                        img.style.width = `${parentHeight * aspectRatio}px`;
+                        img.style.objectFit = 'cover';
                     } else {
-                        img.style.width = `${imgWidth}px`; // 使用图片的默认宽度
-                        img.style.height = `${imgHeight}px`; // 使用图片的默认高度
+                        img.style.width = `${imgWidth}px`;
+                        img.style.height = `${imgHeight}px`;
                     }
                 }
             }
@@ -169,13 +169,13 @@
         const iframes = document.querySelectorAll('.content .post_content iframe.ithome_video, .content .post_content iframe[src*="player.bilibili.com"]');
 
         iframes.forEach(iframe => {
-            if (!iframe.classList.contains('processed')) { // 检查是否已经处理过
+            if (!iframe.classList.contains('processed')) {
                 iframe.style.borderRadius = '12px';
                 iframe.style.border = '3px solid #CCC';
                 iframe.style.display = 'block';
                 iframe.style.margin = '0 auto';
                 iframe.style.overflow = 'hidden';
-                iframe.classList.add('processed'); // 标记为已处理
+                iframe.classList.add('processed');
             }
         });
     }
@@ -298,7 +298,7 @@
                     setRounded();
                     removeAds();
                     hideElements();
-                    handleNewNodes(mutation.addedNodes); // Handle new comment images
+                    handleNewNodes(mutation.addedNodes);
                 }
             }
         });
@@ -322,7 +322,7 @@
         processIframes();
         observeDOM();
         removeAds();
-        document.body.style.opacity = '1'; // 页面加载完成后显示内容
+        document.body.style.opacity = '1';
 
         // 处理图片懒加载
         document.querySelectorAll('img').forEach(img => {
