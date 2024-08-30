@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         IThome Pro - IT之家高级优化版 2024
-// @version      3.1
+// @version      3.2
 // @description  优化ithome网页端浏览效果
 // @match        https://www.ithome.com/*
 // @run-at       document-start
@@ -30,13 +30,13 @@
         clearInterval(intervalId);
     }, 5000);
 
-    // 从主页重定向到博客页面
-    var url = new URL(location.href);
-    var re = /^www\.ithome\.com$/;
-    if (re.test(url.hostname) && url.pathname === '/') {
-        window.stop();
-        url.pathname = '/blog/';
-        location.assign(url.href);
+    // Redirect from homepage to blog page
+    if (window.location.href === 'https://www.ithome.com/') {
+        const style = document.createElement('style');
+        style.innerHTML = `body { opacity: 0; }`;
+        document.head.appendChild(style);
+        window.location.replace('https://www.ithome.com/blog/');
+        return;
     }
 
     // Initial CSS to hide the entire page before it fully loads
@@ -54,6 +54,10 @@
             '#dt > div.fl.content:first-child > div.newsgrade:nth-child(6)',
             '#dt > div.fl.content:first-child > div.shareto:nth-child(7)',
             '#dt > div.fl.content:first-child > iframe.dajia:nth-child(10)',
+            '#dt > div.fl.content:first-child > div.newsgrade:nth-child(8)',
+            '#dt > div.fl.content:first-child > div.newserror:nth-child(7)',
+            '#dt > div.fl.content:first-child > div.newsreward:nth-child(6)',
+            '#dt > div.fl.content:first-child > div.shareto:nth-child(9)',
             '#rm-login-modal > div.modal.has-title.loaded',
             '#dt > div.fl.content:first-child > div.related_post:nth-child(8)',
             '#dt > div.fl.content:first-child > div.newserror:nth-child(5)',
@@ -72,7 +76,7 @@
     }
 
     // Function to process and set rounded images
-    function processImage(image) { 
+    function processImage(image) {
         if (image.classList.contains('titleLogo')) return;
         if (image.classList.contains('lazy') && image.classList.contains('emoji')) return;
         if (image.classList.contains('ruanmei-emoji') && image.classList.contains('emoji')) return;
@@ -101,14 +105,14 @@
                 wrapper.classList.add('processed'); // 标记为已处理
                 videoPlayer.parentNode.insertBefore(wrapper, videoPlayer);
                 wrapper.appendChild(videoPlayer);
-        
+
                 // 设置预览图根据父元素高度调整
                 const img = videoPlayer.querySelector('img');
                 if (img) {
                     const imgWidth = img.getAttribute('w'); // 获取图片的宽度属性
                     const imgHeight = img.getAttribute('h'); // 获取图片的高度属性
                     const parentHeight = wrapper.offsetHeight;
-        
+
                     if (imgWidth > wrapper.offsetWidth) {
                         const aspectRatio = imgWidth / imgHeight;
                         img.style.height = `${parentHeight}px`; // 高度匹配父元素高度
@@ -163,7 +167,7 @@
     // Function to process specific iframes
     function processIframes() {
         const iframes = document.querySelectorAll('.content .post_content iframe.ithome_video, .content .post_content iframe[src*="player.bilibili.com"]');
-        
+
         iframes.forEach(iframe => {
             if (!iframe.classList.contains('processed')) { // 检查是否已经处理过
                 iframe.style.borderRadius = '12px';
@@ -301,7 +305,7 @@
 
         observer.observe(document.body, { childList: true, subtree: true });
     }
-    
+
     // Initial processing for existing comment images
     document.querySelectorAll('.post-img-list.c-1').forEach((node) => {
         decodeAndDisplayImage(node);
@@ -319,7 +323,7 @@
         observeDOM();
         removeAds();
         document.body.style.opacity = '1'; // 页面加载完成后显示内容
-    
+
         // 处理图片懒加载
         document.querySelectorAll('img').forEach(img => {
             if (img.hasAttribute('loading')) {
