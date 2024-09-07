@@ -1,0 +1,84 @@
+singlelogin.re##div.support-us-headline:first-child
+singlelogin.re###colorBoxes > ul > li:nth-child(2)
+singlelogin.re###colorBoxes > ul > li:first-child
+singlelogin.re##table.super-puper-main-container:nth-child(4) > tbody > tr:first-child > td > div.container-fluid > div.row.hideInDesktopApp20:first-child > div.col-md-12 > div.navbar-default.navbar-right:last-child > div.navbar-upd > a.navbar-upd__donate:nth-child(2)
+singlelogin.re###scamSites2Banner > img:last-child
+singlelogin.re###messageBlock
+singlelogin.re###openAdvSearchBtn > div.social-share-buttons-wrap.hideInDesktopApp:last-child
+singlelogin.re###scamSites2Banner > div.btnHideBanner:first-child > span.zlibicon-cross
+movie.douban.com###dale_movie_home_top_right_frame > div:first-child > iframe:last-child
+movie.douban.com###dale_movie_home_top_right_frame > div:first-child
+movie.douban.com###content > div.grid-16-8.clearfix > div.aside:nth-child(3) > div.rating_answer:first-child
+movie.douban.com###db-nav-movie > div.nav-secondary:last-child > a.movieannual:last-child
+movie.douban.com###doulist
+movie.douban.com###dale_movie_home_inner_bottom_frame
+movie.douban.com###dale_movie_home_inner_bottom
+movie.douban.com###content > div.grid-16-8.clearfix > div.aside:nth-child(3) > div.contact.mod:nth-child(10)
+movie.douban.com###contact-and-cooperation
+movie.douban.com###gallery-frames
+book.douban.com###db-nav-book > div.nav-secondary:last-child > a.bookannual:last-child
+book.douban.com###content > div.grid-16-8.clearfix > div.aside:nth-child(2) > div.s:nth-child(10)
+book.douban.com###dale_book_subject_top_right
+book.douban.com###dale_book_subject_middle_mini_frame
+book.douban.com###dale_book_subject_middle_mini
+movie.douban.com###dale_movie_subject_top_right
+movie.douban.com###dale_movie_subject_inner_middle
+chiphell.com###scbar
+chiphell.com###wp > div.wp:nth-child(5) > div.chip_topmain.cl:first-child
+chiphell.com###wp > div.wp:nth-child(5) > div.chiphell_box.cl:nth-child(2)
+chiphell.com###wp > div.wp:nth-child(5) > div.chiphell_box.cl:nth-child(3)
+chiphell.com###wp > div.wp:nth-child(5) > div.chiphell_box.cl:nth-child(4) > div.chip_index_pingce.cl > div.atit.cl:first-child > span:first-child
+chiphell.com###ft
+chiphell.com###toptb
+ithome.com###login-guide-box
+ithome.com###dt > div.fl.content:first-child > iframe.dajia:nth-child(9)
+macosicons.com###app > main.announcement-top-banner:first-child > a > article.Box
+movie.douban.com###dale_movie_home_top_right
+movie.douban.com###dale_movie_home_bottom_right
+movie.douban.com###reviews > div.reviews-hd:first-child > h2
+yinfans.me###popup
+movie.douban.com###dale_movie_review_top_right
+movie.douban.com###dale_movie_review_middle_mini
+movie.douban.com###dale_movie_subject_photos_top_right
+movie.douban.com###dale_movie_subject_photos_middle_mini
+movie.douban.com###content > div.grid-16-8.clearfix:last-child > div.aside:nth-child(2) > div.gray_ad:nth-child(4)
+movie.douban.com###dale_movie_subject_middle_right
+douban.com###dale_anonymous_homepage_right_top_frame
+douban.com###anony-sns > div.wrapper > div.side:nth-child(2) > div:first-child
+movie.douban.com###content > div.grid-16-8.clearfix:last-child > div.aside:nth-child(2) > div.ticket:first-child
+blog.csdn.net###passportbox
+search.douban.com###root > div.sc-gqjmRU.bntAcV > div._e16uvrdga:nth-child(2) > div._hokbwoege:last-child
+movie.douban.com###content > div.grid-free.clearfix:last-child > div.aside:nth-child(2)
+search.douban.com###root > div.sc-gqjmRU.deftIt > div._h3zjb8x75:nth-child(2) > div._80rsinm79:last-child
+github.com##div.logged-in.env-production.page-responsive.full-width:first-child > div.application-main:nth-child(6) > div.color-bg-default > div.d-md-flex.feed-background > div.flex-auto.col-md-8.col-lg-8.px-3.px-sm-3.px-md-0:last-child > div.d-md-flex > div.mt-3.border-bottom.d-flex.feed-content.flex-justify-center > aside.feed-right-sidebar.mb-5.border-bottom:last-child > div:first-child
+github.com##div.logged-in.env-production.page-responsive.full-width:first-child > div.application-main:nth-child(6) > div.color-bg-default > div.d-md-flex.feed-background > div.flex-auto.col-md-8.col-lg-8.px-3.px-sm-3.px-md-0:last-child > div.d-md-flex > div.mt-3.border-bottom.d-flex.feed-content.flex-justify-center > aside.feed-right-sidebar.mb-5.border-bottom:last-child > div:nth-child(2)
+fast.v2ex.com###Rightbar > div.box:nth-child(4)
+fast.v2ex.com###Rightbar > div:nth-child(6) > div.wwads-cn.wwads-vertical
+perplexity.ai###__next > main.__variable_598ab8.__variable_8a67e8.__variable_df28af > div.border-borderMain\/50.ring-borderMain\/50.divide-borderMain\/50.dark\:divide-borderMainDark\/50.dark\:ring-borderMainDark\/50.dark\:border-borderMainDark\/50.bg-offset.dark\:bg-offsetDark > div.flex.h-full.min-h-\[100dvh\] > div.hidden.md\:block.border-borderMain\/50.ring-borderMain\/50.divide-borderMain\/50.dark\:divide-borderMainDark\/50.dark\:ring-borderMainDark\/50.dark\:border-borderMainDark\/50.bg-transparent:first-child > div.group\/bar.isolate.transition-all.duration-300.ease-in-out.w-sideBarWidth > div.fixed.z-20.h-full.transition-all.duration-300.ease-in-out.w-sideBarWidth.border-borderMain\/50.ring-borderMain\/50.divide-borderMain\/50.dark\:divide-borderMainDark\/50.dark\:ring-borderMainDark\/50.dark\:border-borderMainDark\/50.bg-transparent > div.sticky.top-0.flex.h-full.flex-col.justify-between.overflow-y-auto.overflow-x-hidden.pb-sm.pt-\[12px\].scrollbar-thin.scrollbar-track-transparent.scrollbar-thumb-idle.dark\:scrollbar-thumb-idleDark > div.flex.flex-col:last-child > div.mb-sm.flex.items-center.justify-between.border-t.pl-xs.pr-xs.pt-sm.border-borderMain\/50.ring-borderMain\/50.divide-borderMain\/50.dark\:divide-borderMainDark\/50.dark\:ring-borderMainDark\/50.dark\:border-borderMainDark\/50.bg-transparent:last-child
+perplexity.ai###__next > main.__variable_598ab8.__variable_8a67e8.__variable_df28af > div.border-borderMain\/50.ring-borderMain\/50.divide-borderMain\/50.dark\:divide-borderMainDark\/50.dark\:ring-borderMainDark\/50.dark\:border-borderMainDark\/50.bg-offset.dark\:bg-offsetDark > div.flex.h-full.min-h-\[100dvh\] > div.grow.lg\:pb-sm.lg\:pr-sm.lg\:pt-sm:last-child > div.h-full.overflow-clip.bg-clip-border.shadow-sm.md\:dark\:border.lg\:rounded-lg.border-borderMain\/50.ring-borderMain\/50.divide-borderMain\/50.dark\:divide-borderMainDark\/50.dark\:ring-borderMainDark\/50.dark\:border-borderMainDark\/50.bg-background.dark\:bg-backgroundDark > div.relative.flex.h-full.flex-col > div.mx-auto.h-full.w-full.max-w-screen-md.px-md.md\:px-lg > div.fixed.bottom-md.right-md.m-sm.hidden.md\:block:last-child > span > button.bg-textMain.text-textMainDark.dark\:bg-textMainDark.dark\:text-light-text.hover\:text-superDuper.hover\:dark\:text-superDuper.font-sans.focus\:outline-none.outline-none.outline-transparent.transition.duration-300.ease-in-out.select-none.items-center.relative.group\/button.justify-center.text-center.rounded-full.cursor-point.active\:scale-95.origin-center.whitespace-nowrap.inline-flex.text-sm.aspect-square.h-8
+perplexity.ai###__next > main.__variable_598ab8.__variable_8a67e8.__variable_df28af > div.border-borderMain\/50.ring-borderMain\/50.divide-borderMain\/50.dark\:divide-borderMainDark\/50.dark\:ring-borderMainDark\/50.dark\:border-borderMainDark\/50.bg-offset.dark\:bg-offsetDark > div.flex.h-full.min-h-\[100dvh\] > div.grow.lg\:pb-sm.lg\:pr-sm.lg\:pt-sm:last-child > div.h-full.overflow-clip.bg-clip-border.shadow-sm.md\:dark\:border.lg\:rounded-lg.border-borderMain\/50.ring-borderMain\/50.divide-borderMain\/50.dark\:divide-borderMainDark\/50.dark\:ring-borderMainDark\/50.dark\:border-borderMainDark\/50.bg-background.dark\:bg-backgroundDark > div.relative.flex.h-full.flex-col > div.mx-auto.h-full.w-full.max-w-screen-md.px-md.md\:px-lg > div.relative.flex.h-full.flex-col:first-child > div.mt-lg.w-full.grow.items-center.md\:mt-0.md\:flex.border-borderMain\/50.ring-borderMain\/50.divide-borderMain\/50.dark\:divide-borderMainDark\/50.dark\:ring-borderMainDark\/50.dark\:border-borderMainDark\/50.bg-transparent:nth-child(2) > div.mb-lg.w-full.md\:mb-xl > div > div:last-child
+perplexity.ai###__next > main.__variable_598ab8.__variable_8a67e8.__variable_df28af > div.border-borderMain\/50.ring-borderMain\/50.divide-borderMain\/50.dark\:divide-borderMainDark\/50.dark\:ring-borderMainDark\/50.dark\:border-borderMainDark\/50.bg-offset.dark\:bg-offsetDark > div.flex.h-full.min-h-\[100dvh\] > div.hidden.md\:block.border-borderMain\/50.ring-borderMain\/50.divide-borderMain\/50.dark\:divide-borderMainDark\/50.dark\:ring-borderMainDark\/50.dark\:border-borderMainDark\/50.bg-transparent:first-child > div.group\/bar.isolate.transition-all.duration-300.ease-in-out.w-sideBarWidth > div.fixed.z-20.h-full.transition-all.duration-300.ease-in-out.w-sideBarWidth.border-borderMain\/50.ring-borderMain\/50.divide-borderMain\/50.dark\:divide-borderMainDark\/50.dark\:ring-borderMainDark\/50.dark\:border-borderMainDark\/50.bg-transparent > div.sticky.top-0.flex.h-full.flex-col.justify-between.overflow-y-auto.overflow-x-hidden.pb-sm.pt-\[12px\].scrollbar-thin.scrollbar-track-transparent.scrollbar-thumb-idle.dark\:scrollbar-thumb-idleDark > div.flex.flex-col:last-child > div.border-borderMain\/50.ring-borderMain\/50.divide-borderMain\/50.dark\:divide-borderMainDark\/50.dark\:ring-borderMainDark\/50.dark\:border-borderMainDark\/50.bg-transparent:first-child
+tongyi.aliyun.com###tongyiPageLayout > div.sc-flUsNl.eGjJuy:last-child > div.sc-WChnI.gjIIms > div.sc-hAqmLS.bQbVYK.pageContentWrap--AovzQ5wq:nth-child(2) > div.mainContent--BuDyyRvh > div.contentWrapper--nKrTYKHP:nth-child(2) > div.react-scroll-to-bottom--css-pyepg-79elbk.w-full.flex-1.overflow-auto.scrollWrap--Cc0w8zsU:first-child > div.react-scroll-to-bottom--css-pyepg-1n7m0yu > div.guideComp--d3Vblnno > div.guideContainer--W17yDH1J > div.recommendWrapper--DtspmXbn:last-child
+tongyi.aliyun.com###tongyiPageLayout > div.sc-flUsNl.eGjJuy:last-child > div.sc-WChnI.gjIIms > div.sc-hAqmLS.bQbVYK.pageContentWrap--AovzQ5wq:nth-child(2) > div.mainContent--BuDyyRvh > div.contentWrapper--nKrTYKHP:nth-child(2) > div.react-scroll-to-bottom--css-pyepg-79elbk.w-full.flex-1.overflow-auto.scrollWrap--Cc0w8zsU:first-child > div.react-scroll-to-bottom--css-pyepg-1n7m0yu > div.guideComp--d3Vblnno
+tongyi.aliyun.com###tongyiPageLayout > div.sc-flUsNl.eGjJuy:last-child > div.sc-WChnI.gjIIms > div.sc-hAqmLS.bQbVYK.pageContentWrap--AovzQ5wq:nth-child(2) > div.mainContent--BuDyyRvh > div.contentWrapper--nKrTYKHP:nth-child(2) > div.react-scroll-to-bottom--css-donqv-79elbk.w-full.flex-1.overflow-auto.scrollWrap--Cc0w8zsU:first-child > div.react-scroll-to-bottom--css-donqv-1n7m0yu > div.guideComp--d3Vblnno
+cock.li##div.alert.alert-success:first-child
+douban.com###dale_each_group_home_bottom_right
+v2ex.com###Rightbar > div.box:nth-child(4)
+v2ex.com###Rightbar > div:nth-child(6) > div.wwads-cn.wwads-vertical
+arxiv.org###cu-identity
+singlelogin.re###scamSites2Banner > img:first-child
+singlelogin.re###scamSites2Banner
+singlelogin.re##div.container-fluid:first-child > div.row.hideInDesktopApp20 > nav.navigation > div.navigation-element.donate-element:nth-child(3)
+singlelogin.re##div.container-fluid:first-child > div.row.hideInDesktopApp20 > nav.navigation > div.mode-switcher:first-child
+singlelogin.re###openAdvSearchBtn > z-social-sharing.ready:last-child
+claude.ai##div.flex.min-h-screen.w-full:nth-child(2) > div.min-h-full.w-full.min-w-0.flex-1:last-child > main.mx-auto.mt-4.w-full.max-w-7xl.flex-1.px-4.pb-20.md\:pl-8.lg\:mt-6.min-h-screen-w-scroll.\!mt-0.flex.flex-col.items-center.gap-8.pt-12.md\:pr-14.\32 xl\:pr-20 > div.mx-auto.w-full.max-w-2xl.px-1.md\:px-2:last-child > div.mt-2.flex.items-center.pb-3
+claude.ai##div.flex.min-h-screen.w-full:nth-child(2) > div.min-h-full.w-full.min-w-0.flex-1:last-child > main.mx-auto.mt-4.w-full.max-w-7xl.flex-1.px-4.pb-20.md\:pl-8.lg\:mt-6.min-h-screen-w-scroll.\!mt-0.flex.flex-col.items-center.gap-8.pt-12.md\:pr-14.\32 xl\:pr-20 > div.mx-auto.flex.w-full.max-w-4xl.flex-col.items-center.gap-4.max-md\:pt-4:first-child > div.font-tiempos.border-0\.5.absolute.right-2.top-3\.5.ml-0\.5.inline-flex.items-center.gap-1\.5.rounded-full.bg-gradient-to-b.py-2.pl-3\.5.pr-3.text-center.text-xs.sm\:static.sm\:text-sm.from-bg-500\/15.to-bg-500\/5.border-border-300:first-child
+live.douyin.com###living_room_player_containerc1990cc2-fb31-4fdd-b60e-a57db70e59a0 > div.w_MKT68s:nth-child(2) > div > div.xrnYRWXb:first-child > div.Yg732rIw:first-child > div.pip-anchor > div.basicPlayer.VikzqdfH.pACxQsmy.living_player.xgplayer-pc.xgplayer.xgplayer_autohide.xgplayer-playing > div.xQl4U2BP.pmBw8k1t:nth-child(13)
+###J_promotional-top
+###treasure
+jd.com##.fs_act_lk_img
+jd.com##.fs_act_lk, .J_fsbtn
+live.douyin.com###living_room_player_containerbab4e5d8-ddd9-4c02-acc1-4a82001ac3eb > div.w_MKT68s.V_GY7ACt:nth-child(2) > div > div.xrnYRWXb:first-child > div.Yg732rIw:first-child > div.pip-anchor > div.basicPlayer.VikzqdfH.pACxQsmy.living_player.xgplayer-pc.xgplayer.xgplayer_autohide.xgplayer-playing > div.xQl4U2BP.pmBw8k1t:nth-child(13)
+unsplash.com###app > div.cm8F8.UyVIg.Tyyan > div > div:last-child > div.aah7o:first-child > div.XyN9I:first-child > div.qi6YA.m3xjc.NZxG4.n6mLh.BOC6f
+unsplash.com###app > div.cm8F8.UyVIg.Tyyan > div > div:last-child > div.aah7o:first-child
+s.nia.gov.cn##div.wrapper:first-child > div.main:last-child > div.container > div.left-nav:nth-child(3)

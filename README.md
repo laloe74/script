@@ -25,3 +25,6 @@ Python檢測http代理代碼
 
 ### darkmode.user.js
 本地HTML黑暗模式
+
+### adguard-user-rules.txt
+AdGuard自定义规则
