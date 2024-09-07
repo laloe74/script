@@ -1,5 +1,8 @@
 import os
 
+# 设置模式变量：1：普通格式；2：Hugo格式
+mode = 2
+
 def clean_whitespace(text):
     """
     清除空格：
@@ -138,8 +141,13 @@ def process_files(input_folder, output_folder):
             # 控制版面
             formatted_content = format_layout(content)
 
-            # 添加空格
-            final_content = add_spaces(formatted_content)
+            # 根据 mode 设置决定是否添加额外的空格处理
+            if mode == 2:
+                # 添加空格
+                final_content = add_spaces(formatted_content)
+            else:
+                # 不进行额外的空格处理
+                final_content = formatted_content
 
             # 保存处理后的文件
             with open(output_path, 'w', encoding='utf-8') as file:
