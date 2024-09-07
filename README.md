@@ -20,6 +20,9 @@
 ### httpTest.py
 Python檢測http代理代碼
 
+### hugofix.py
+批量清理Markdown文件，使其诗歌内容适配Hugo
+
 ### ithomepro.user.js
 优化 IThome 网页端浏览效果
 
