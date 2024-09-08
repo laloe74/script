@@ -31,3 +31,6 @@ Python檢測http代理代碼
 
 ### adguard-user-rules.txt
 AdGuard自定义规则
+
+### gitignore_global
+gitignore全局配置
