@@ -1,8 +1,6 @@
 import os
 
-# 设置模式变量：1：普通格式；2：Hugo格式
-mode = 2
-
+# 清除空格
 def clean_whitespace(text):
     """
     清除空格：
@@ -23,73 +21,75 @@ def clean_whitespace(text):
 
     return '\n'.join(cleaned_lines)
 
-
+# 版面控制
 def format_layout(text):
     """
-    控制版面格式：
-    1. 确保标题下紧跟作者名称。
-    2. 确保作者和内容之间有且仅有一个空行。
-    3. 确保最后一个标题的最后一行内容就是文件的最后一行内容。
-    4. 确保第一个###标题上和---之间保持两个空行。
-    5. 内容内部，连续空行最多保持1行。
-    6. 如果某一行有内容，但是是以空格开头，则删除空格，让其以内容开头。
+    控制版面
+        标题处理：
+            - 第一个标题上只保留两个空行。
+            - 其余标题上保留三个空行。
+        作者处理：
+            - 标题下紧跟作者
+            - 若标题下没有紧跟作者，以「作者」替代。
+            - 确保作者和内容之间有且仅有一个空行。
+        诗歌内容处理：
+            - 内容内部若存在连续多个空行，只保留一个空行。
+        整体处理：
+            - 确保最后一行有文字的内容就是整个文件的最后一行。
     """
+
     lines = text.split('\n')
     formatted_lines = []
     i = 0
     first_title_found = False
 
+    # 处理每一行
     while i < len(lines):
-        line = lines[i]
-        
-        # 删除行首的空格
-        line = line.lstrip()
+        line = lines[i]  # 保留行首空格
 
-        # 添加标题
+        # 标题处理
         if line.startswith('### '):
+            # 处理第一个标题
             if not first_title_found:
                 first_title_found = True
-                # 在第一个标题上方确保保留两个空行
+                # 在第一个标题上方只保留两个空行
                 while len(formatted_lines) > 0 and formatted_lines[-1].strip() == '':
                     formatted_lines.pop()
-                formatted_lines.extend([''] * 2)
-
+                formatted_lines.extend(['', ''])
             else:
-                # 在非第一个标题上方保留三个空行
+                # 其余标题上方保留三个空行
                 while len(formatted_lines) > 0 and formatted_lines[-1].strip() == '':
                     formatted_lines.pop()
-                formatted_lines.extend([''] * 3)
-            
+                formatted_lines.extend(['', '', ''])
+
+            # 添加标题行
             formatted_lines.append(line)
-            
-            # 确保标题下一行为作者
-            if i + 1 < len(lines) and lines[i + 1].strip() != '':
-                formatted_lines.append(lines[i + 1].strip())
+
+            # 作者处理
+            if i + 1 < len(lines) and lines[i + 1].strip() != '' and not lines[i + 1].startswith('### '):
+                # 如果标题下面的行存在且不是下一个标题，则认为是作者行
+                formatted_lines.append(lines[i + 1])
                 i += 1
             else:
-                formatted_lines.append('作者')  # 默认添加作者行
-            
-            # 添加作者和内容之间的一个空行
-            formatted_lines.append('')
-        
-        # 处理其他内容
+                # 否则添加默认作者行
+                formatted_lines.append('作者')
+
+        # 诗歌内容处理
         else:
-            if line.strip() == '':
-                # 跳过多余空行，仅保留一个空行
-                if len(formatted_lines) > 0 and formatted_lines[-1] == '':
-                    i += 1
-                    continue
+            # 直接添加，不做其他处理
             formatted_lines.append(line)
-        
+
         i += 1
 
-    # 删除末尾所有空行，确保文件以最后一行内容结尾
+    # 整体处理
+    # 删除末尾所有空行，确保最后一行有文字的内容
     while len(formatted_lines) > 0 and formatted_lines[-1].strip() == '':
         formatted_lines.pop()
 
+    # 返回结果
     return '\n'.join(formatted_lines)
 
-
+# Hugo 格式
 def add_spaces(text):
     """
     处理空格要求：
@@ -121,11 +121,17 @@ def add_spaces(text):
 
     return '\n'.join(processed_lines)
 
-
+# 模式控制
 def process_files(input_folder, output_folder):
     """
     处理输入文件夹中的所有 Markdown 文件，将结果保存到输出文件夹。
     """
+    # 设置模式变量：
+    # - 1：清除空格
+    # - 2：清除空格+版面控制
+    # - 3：Hugo格式
+    mode = int(input("请输入处理模式（1, 2, 3）："))
+
     for filename in os.listdir(input_folder):
         if filename.endswith('.md'):
             input_path = os.path.join(input_folder, filename)
@@ -134,20 +140,28 @@ def process_files(input_folder, output_folder):
             # 读取文件内容
             with open(input_path, 'r', encoding='utf-8') as file:
                 content = file.read()
+           
+            while True:
+                if mode == 1:
+                    print("执行模式-1: 清除空格")
+                    final_content = clean_whitespace(content)
+                    break
 
-            # 清除空格
-            content = clean_whitespace(content)
+                elif mode == 2:
+                    print("执行模式-2: 清除空格+版面控制")
+                    clean_content = clean_whitespace(content)
+                    final_content = format_layout(clean_content)
+                    break
 
-            # 控制版面
-            formatted_content = format_layout(content)
-
-            # 根据 mode 设置决定是否添加额外的空格处理
-            if mode == 2:
-                # 添加空格
-                final_content = add_spaces(formatted_content)
-            else:
-                # 不进行额外的空格处理
-                final_content = formatted_content
+                elif mode == 3:
+                    print("执行模式-3: Hugo格式")
+                    clean_content = clean_whitespace(content)
+                    formatted_content = format_layout(clean_content)
+                    final_content = add_spaces(formatted_content)
+                    break
+                else:
+                    print("没有选择模式")
+                    mode = int(input("请再次输入模式（1, 2, 3）："))
 
             # 保存处理后的文件
             with open(output_path, 'w', encoding='utf-8') as file:
