@@ -75,7 +75,7 @@ def format_layout(text):
                 i += 1
             else:
                 # 否则添加默认作者行
-                formatted_lines.append('作者')
+                formatted_lines.append('error：作者缺失')
 
         # 诗歌内容处理
         else:
@@ -143,6 +143,7 @@ def validate_layout(text, mode):
         5. 内容行以两个空格结尾。
         6. 其余的标题行上方三行为「　 」（每行一个全角空格和两个半角空格）。
         7. 文件的最后一行是非空行。
+        8.检查是否存在 "error：作者缺失"
     模式2 (清除空格+版面控制)：
         1. 查找第二个 '---' 行，然后检查其下方的第3行是否为标题行。
         2. 以 '###' 开头的标题行末尾不存在任何空格。
@@ -151,6 +152,7 @@ def validate_layout(text, mode):
         5. 内容末尾没有空格。
         6. 其余的标题行上方三行为3个空行。
         7. 文件的最后一行是非空行。
+        8.检查是否存在 "error：作者缺失"
     """
 
     if mode == 1:
@@ -162,6 +164,11 @@ def validate_layout(text, mode):
     total_lines = len(lines)
     inside_delimiters = False  # 用于跟踪是否在 --- 包裹内部
     first_title_found = False  # 用于标记第一个标题是否已找到
+
+    # 检查是否存在 "error：作者缺失"
+    for i, line in enumerate(lines):
+        if "error：作者缺失" in line:
+            errors.append(f"第 {i + 1} 行：发现 'error：作者缺失'")
 
     # 查找第二个 '---' 行的位置
     delimiter_count = 0
@@ -281,18 +288,18 @@ def process_files(input_folder, output_folder):
            
             while True:
                 if mode == 1:
-                    print("\n模式:1     清除空格")
+                    print("\n模式:1    清除空格")
                     final_content = clean_whitespace(content)
                     break
 
                 elif mode == 2:
-                    print("\n模式:2     清除空格+版面控制")
+                    print("\n模式:2    清除空格+版面控制")
                     clean_content = clean_whitespace(content)
                     final_content = format_layout(clean_content)
                     break
 
                 elif mode == 3:
-                    print("\n模式:3     Hugo格式")
+                    print("\n模式:3    Hugo格式")
                     clean_content = clean_whitespace(content)
                     formatted_content = format_layout(clean_content)
                     final_content = add_spaces(formatted_content)
