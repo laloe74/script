@@ -276,6 +276,7 @@ def process_files(input_folder, output_folder):
     # - 2：清除空格+版面控制
     # - 3：Hugo格式
     mode = int(input("输入处理模式 1/2/3：    "))
+    print("=============================")
 
     for filename in os.listdir(input_folder):
         if filename.endswith('.md'):
@@ -288,18 +289,19 @@ def process_files(input_folder, output_folder):
            
             while True:
                 if mode == 1:
-                    print("\n模式:1    清除空格")
+                    print("开始")
+                    print("模式:1    清除空格")
                     final_content = clean_whitespace(content)
                     break
 
                 elif mode == 2:
-                    print("\n模式:2    清除空格+版面控制")
+                    print("模式:2    清除空格+版面控制")
                     clean_content = clean_whitespace(content)
                     final_content = format_layout(clean_content)
                     break
 
                 elif mode == 3:
-                    print("\n模式:3    Hugo格式")
+                    print("模式:3    Hugo格式")
                     clean_content = clean_whitespace(content)
                     formatted_content = format_layout(clean_content)
                     final_content = add_spaces(formatted_content)
@@ -315,7 +317,8 @@ def process_files(input_folder, output_folder):
             with open(output_path, 'w', encoding='utf-8') as file:
                 file.write(final_content)
 
-            print(f"\n处理完成: {filename}\n")
+            print(f"\n完成: {filename}\n")
+            print("---------------------------")
 
 
 # 定义输入和输出文件夹路径
