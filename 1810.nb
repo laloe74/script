@@ -1,0 +1,70 @@
+DynamicModule[{price = "", marketCap = "", myAssets = "", totalShares, myShares, exchangeRate, resultPrice = "", resultMarketCap = "", resultMyAssets = ""},
+  
+  (* 定义常量：总股本、持股数量和汇率 *)
+  totalShares = 249.51;   (* 总股本 249.51 亿股 *)
+  myShares = 14600;       (* 持股数量 14600 股 *)
+  exchangeRate = 0.92;    (* 固定汇率：港币兑人民币 *)
+
+  (* 定义交互式输入与计算 *)
+  Column[{
+    Row[{
+      "股价 (港元): ", 
+      InputField[Dynamic[price], String, FieldSize -> 20, ContinuousAction -> False]
+    }],
+    
+    Row[{
+      "股票总市值 (亿港元): ", 
+      InputField[Dynamic[marketCap], String, FieldSize -> 20, ContinuousAction -> False]
+    }],
+    
+    Row[{
+      "我的总资产 (万人民币): ", 
+      InputField[Dynamic[myAssets], String, FieldSize -> 20, ContinuousAction -> False]
+    }],
+    
+    (* 提交按钮 *)
+    Row[{
+      Button["提交", 
+        Dynamic[
+          Module[{P, M, A},
+            Which[
+              (* 输入股价时，计算总市值和我的总资产 *)
+              price != "" && NumberQ[ToExpression[price]], 
+              P = ToExpression[price];
+              M = P * totalShares; (* 总市值 = 股价 * 总股本 *)
+              A = P * myShares * exchangeRate / 10000; (* 我的资产 = 股价 * 持股数量 * 汇率 *)
+              resultPrice = ToString[NumberForm[P, {Infinity, 2}]];
+              resultMarketCap = ToString[NumberForm[M, {Infinity, 2}]];
+              resultMyAssets = ToString[NumberForm[A, {Infinity, 2}]];
+              price = ""; marketCap = ""; myAssets = "",
+
+              (* 输入股票总市值时，计算股价和我的资产 *)
+              marketCap != "" && NumberQ[ToExpression[marketCap]], 
+              M = ToExpression[marketCap]; (* 总市值以亿为单位 *)
+              P = M / totalShares; (* 股价 = 总市值 / 总股本 *)
+              A = P * myShares * exchangeRate / 10000; (* 我的资产 = 股价 * 持股数量 * 汇率 *)
+              resultPrice = ToString[NumberForm[P, {Infinity, 2}]];
+              resultMarketCap = ToString[marketCap];
+              resultMyAssets = ToString[NumberForm[A, {Infinity, 2}]];
+              price = ""; marketCap = ""; myAssets = "",
+
+              (* 输入我的资产时，计算股价和总市值 *)
+              myAssets != "" && NumberQ[ToExpression[myAssets]], 
+              A = ToExpression[myAssets]; (* 我的资产以万为单位 *)
+              P = A * 10000 / (myShares * exchangeRate); (* 股价 = 我的资产 / (持股数量 * 汇率) *)
+              M = P * totalShares; (* 总市值 = 股价 * 总股本 *)
+              resultPrice = ToString[NumberForm[P, {Infinity, 2}]];
+              resultMarketCap = ToString[NumberForm[M, {Infinity, 2}]];
+              resultMyAssets = ToString[myAssets];
+              price = ""; marketCap = ""; myAssets = ""
+            ];
+          ]
+        ], Method -> "Queued"]
+    }],
+    
+    (* 显示计算结果 *)
+    Row[{"股价 (港元): ", Dynamic[resultPrice]}],
+    Row[{"股票总市值 (亿港元): ", Dynamic[resultMarketCap]}],
+    Row[{"我的总资产 (万人民币): ", Dynamic[resultMyAssets]}]
+  }]
+]
