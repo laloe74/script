@@ -97,7 +97,7 @@ markdown_lines.append('')  # 再添加一个空行
 markdown_lines.append('### 电影')
 
 # 第一部分：生成汇总统计表的Markdown内容
-summary_table_header = '|总数|5星|4星|3星|2星|1星|'
+summary_table_header = '|总数|五星|四星|三星|二星|一星|'
 summary_table_divider = '|:----|:----|:----|:----|:----|:----|'
 summary_table_content = '|{}|{}|{}|{}|{}|{}|'.format(total_count, five_star_count, four_star_count, three_star_count, two_star_count, one_star_count)
 markdown_lines.append(summary_table_header)
