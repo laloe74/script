@@ -1,24 +1,4 @@
 """
-# 脚本说明
-
-## 功能描述
-此脚本用于将Excel文件中的「看过」分表数据进行处理并生成两个文件：
-1. 处理后的Excel文件（排除剧集内容，仅保留电影内容，并按照格式重新组织数据）。
-2. 对应的Markdown格式文件（表头和内容分隔符，Markdown语法格式）。
-
-## 输入文件
-- 名称：marks.xlsx
-- 路径：桌面
-- 说明：1.xlsx 文件中需要包含一个名为「看过」的分表，并且表格内容包含以下列：
-    - 标题、简介、豆瓣评分、链接、创建时间、我的评分、标签、评论、NeoDB链接。
-- NeoDB链接列需要包含电影的前缀：https://neodb.social/movie/ 才会被筛选到最终输出内容中。
-- 剧集内容（前缀为：https://neodb.social/tv/）将会被排除。
-
-## 生成文件
-1. 处理后的Excel文件：`处理后的表格.xlsx`，存放路径为桌面。
-2. Markdown文件：`处理后的表格.md`，存放路径为桌面，格式精简，符合Markdown语法要求。
-
-依赖项：
 pip install pandas openpyxl tabulate
 """
 
@@ -27,9 +7,9 @@ import os
 from datetime import datetime
 
 # 定义文件路径，使用 os.path.expanduser() 将路径中的 ~ 替换为绝对路径
-input_file = os.path.expanduser('~/Desktop/marks.xlsx')  # 假设文件在桌面，并且名字是 1.xlsx
-output_excel = os.path.expanduser('~/Desktop/film.xlsx')  # 输出的Excel文件保存至桌面
-output_markdown = os.path.expanduser('~/Desktop/film.md')  # 输出的Markdown文件保存至桌面
+input_file = os.path.expanduser('~/Desktop/marks.xlsx') 
+output_excel = os.path.expanduser('~/Desktop/film.xlsx') 
+output_markdown = os.path.expanduser('/Users/laloe74/Project/keooq/content/pages/film.md')  # 直接更新博客文件
 
 # 读取指定的分表「看过」
 df = pd.read_excel(input_file, sheet_name='看过')
@@ -128,4 +108,4 @@ markdown_content = '\n'.join(markdown_lines)
 with open(output_markdown, 'w', encoding='utf-8') as md_file:
     md_file.write(markdown_content)
 
-print("处理完成，Excel表格和Markdown文件已保存至桌面。")
+print("\nfilm.py 执行完成")
