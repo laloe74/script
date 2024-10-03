@@ -1,10 +1,12 @@
 // ==UserScript==
 // @name         IThome Pro - IT之家高级优化版 2024
-// @version      3.4
+// @version      3.5
 // @description  优化ithome网页端浏览效果
 // @match        https://www.ithome.com/*
 // @run-at       document-start
 // @namespace    https://greasyfork.org/users/1354671
+// @downloadURL https://update.greasyfork.org/scripts/504286/IThome%20Pro%20-%20IT%E4%B9%8B%E5%AE%B6%E9%AB%98%E7%BA%A7%E4%BC%98%E5%8C%96%E7%89%88%202024.user.js
+// @updateURL https://update.greasyfork.org/scripts/504286/IThome%20Pro%20-%20IT%E4%B9%8B%E5%AE%B6%E9%AB%98%E7%BA%A7%E4%BC%98%E5%8C%96%E7%89%88%202024.meta.js
 // ==/UserScript==
 
 (function() {
@@ -30,21 +32,25 @@
         clearInterval(intervalId);
     }, 1000);
 
-    // Redirect from homepage to blog page
-    if (window.location.href === 'https://www.ithome.com/') {
-        const style = document.createElement('style');
-        style.innerHTML = `body { opacity: 0; }`;
-        document.head.appendChild(style);
+    // 定义样式用于立即隐藏页面内容
+    const hideStyle = document.createElement('style');
+    hideStyle.innerHTML = `body { opacity: 0; }`;
+    document.head.appendChild(hideStyle);
+
+    // 针对 https://www.ithome.com 页面执行逻辑
+    if (window.location.href === 'https://www.ithome.com' || window.location.href === 'https://www.ithome.com/') {
+        // 立即隐藏 主页 页面内容
+        document.head.appendChild(hideStyle);
+        // 跳转到 blog 页面
         window.location.replace('https://www.ithome.com/blog/');
         return;
     }
 
-    // Initial CSS to hide the entire page before it fully loads
-    const style = document.createElement('style');
-    style.innerHTML = `
-        body { opacity: 0; } /* 立即隐藏页面，无过渡效果 */
-    `;
-    document.head.appendChild(style);
+    // 针对 https://www.ithome.com/blog/ 页面执行逻辑
+    if (window.location.href.startsWith('https://www.ithome.com/blog/')) {
+        // 立即隐藏 blog 页面内容
+        document.head.appendChild(hideStyle);
+    }
 
     // Function to hide elements based on AdGuard rules
     function hideElements() {
@@ -82,7 +88,8 @@
         if (image.classList.contains('ruanmei-emoji') && image.classList.contains('emoji')) return;
         if (image.id === 'image-viewer' || image.classList.contains('zoomed')) return;
         if (image.classList.contains('comment-image')) return; // 排除带有评论区特征的图片
-
+       
+        // 图片
         if (image.closest('a.img')) {
             const anchor = image.closest('a.img');
             if (!anchor.classList.contains('processed')) {
@@ -92,6 +99,7 @@
                 anchor.style.overflow = 'hidden';
                 anchor.classList.add('processed');
             }
+        // 视频
         } else if (image.closest('.ithome_super_player')) {
             const videoPlayer = image.closest('.ithome_super_player');
             if (!videoPlayer.parentNode.classList.contains('processed')) {
@@ -124,8 +132,8 @@
                     }
                 }
             }
+        // 头像修正
         } else {
-            // 头像修正
             if (image.width >= 30) {
                 image.style.borderRadius = '12px';
                 image.style.border = '3px solid #CCC';
