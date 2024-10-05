@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         IThome Pro - IT之家高级优化版 2024
-// @version      3.6.1
+// @version      3.7
 // @description  优化ithome网页端浏览效果
 // @match        *://*.ithome.com/*
 // @run-at       document-start
@@ -255,46 +255,55 @@
         });
     }
 
-    // Function to decode and display images in comments
-    function decodeAndDisplayImage(node) {
-        const span = node.querySelector('span.img-placeholder');
-        if (span) {
+// Function to decode and display images in comments
+function decodeAndDisplayImages(node) {
+    try {
+        // 获取当前容器中所有的 img-placeholder
+        const spanList = node.querySelectorAll('span.img-placeholder');
+        spanList.forEach(span => {
             const dataS = span.getAttribute('data-s');
             if (dataS) {
-                const decodedUrl = atob(dataS);
+                let decodedUrl;
+                try {
+                    decodedUrl = atob(dataS); // 解码 Base64 字符串
+                } catch (error) {
+                    console.error("图片 URL 解码失败：", error, dataS);
+                    return; // 解码失败时退出
+                }
+
                 const img = document.createElement('img');
                 img.src = decodedUrl;
-                img.classList.add('comment-image'); // 给评论区的图片添加特征
-                img.style.maxWidth = '200px'; // 设置初始最大宽度为200px
-                img.style.display = 'block'; // 让图片作为块级元素
-                img.style.marginLeft = '0'; // 确保图片居左对齐
-                img.style.border = '1px solid rgb(204, 204, 204)'; // 设置边框颜色和宽度
-                img.style.borderRadius = '12px'; // 设置图片圆角
-                img.style.cursor = 'pointer'; // 设置鼠标悬停时为手型光标，表示图片可点击
+                img.classList.add('comment-image');
+                img.style.maxWidth = '200px';
+                img.style.display = 'block';
+                img.style.marginLeft = '0';
+                img.style.border = '1px solid rgb(204, 204, 204)';
+                img.style.borderRadius = '12px';
+                img.style.cursor = 'pointer';
 
-                let isZoomed = false; // 标志位，表示图片是否放大
-
-                img.addEventListener('click', function() {
+                let isZoomed = false;
+                img.addEventListener('click', function () {
                     if (!isZoomed) {
-                        // 放大图片
-                        img.style.maxWidth = '100%'; // 将图片的最大宽度设置为父元素宽度
-                        img.style.height = 'auto'; // 自动调整高度以保持宽高比
-                        img.style.cursor = 'zoom-out'; // 鼠标悬停时变为缩小光标
+                        img.style.maxWidth = '100%';
+                        img.style.height = 'auto';
+                        img.style.cursor = 'zoom-out';
                         isZoomed = true;
                     } else {
-                        // 恢复图片到初始状态
-                        img.style.maxWidth = '200px'; // 恢复到初始宽度200px
-                        img.style.height = 'auto'; // 自动调整高度以保持宽高比
-                        img.style.cursor = 'pointer'; // 鼠标悬停时变为放大光标
+                        img.style.maxWidth = '200px';
+                        img.style.height = 'auto';
+                        img.style.cursor = 'pointer';
                         isZoomed = false;
                     }
                 });
 
-                span.innerHTML = ''; // 清空span内容
-                span.appendChild(img); // 添加img元素
+                span.innerHTML = ''; // 清空 span 内容
+                span.appendChild(img); // 添加 img 元素
             }
-        }
+        });
+    } catch (e) {
+        console.error("处理图片时出错：", e, node);
     }
+}
 
     // Observe DOM changes and apply styles/changes dynamically
     function observeDOM() {
@@ -306,7 +315,18 @@
                     setRounded();
                     removeAds();
                     hideElements();
-                    handleNewNodes(mutation.addedNodes);
+                    mutation.addedNodes.forEach((node) => {
+                        if (node.nodeType === Node.ELEMENT_NODE) {
+                            // 检查是否是图片列表并进行处理
+                            if (node.matches('.post-img-list')) {
+                                decodeAndDisplayImages(node);
+                            }
+                            // 检查新加入的节点内部是否包含图片列表
+                            node.querySelectorAll('.post-img-list').forEach((childNode) => {
+                                decodeAndDisplayImages(childNode);
+                            });
+                        }
+                    });
                 }
             }
         });
@@ -317,6 +337,10 @@
     // Initial processing for existing comment images
     document.querySelectorAll('.post-img-list.c-1').forEach((node) => {
         decodeAndDisplayImage(node);
+    });
+
+    document.querySelectorAll('.post-img-list').forEach((node) => {
+        decodeAndDisplayImages(node);
     });
 
     // Event listeners
