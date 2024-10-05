@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         IThome Pro - IT之家高级优化版 2024
-// @version      3.7
+// @version      3.8
 // @description  优化ithome网页端浏览效果
 // @match        *://*.ithome.com/*
 // @run-at       document-start
@@ -327,6 +327,7 @@ function decodeAndDisplayImages(node) {
                             });
                         }
                     });
+                    wrapImagesInP();
                 }
             }
         });
@@ -354,6 +355,7 @@ function decodeAndDisplayImages(node) {
         processIframes();
         observeDOM();
         removeAds();
+        wrapImagesInP();
         document.body.style.opacity = '1';
 
         // 处理图片懒加载
