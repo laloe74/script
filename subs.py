@@ -15,7 +15,7 @@ time_adjustment = 0
 cc = OpenCC('t2s')  # 't2s' 表示繁体转简体
 
 # 获取输入的字幕文件目录
-subtitle_directory = input("\n输入路径（直接将待处理的文件夹拖进来）\n---------------------：").strip()
+subtitle_directory = input("输入路径（直接将待处理的文件夹拖进来）：").strip()
 
 # 处理可能的路径格式问题（去除两端引号）
 subtitle_directory = subtitle_directory.strip('"').strip("'")
@@ -30,6 +30,26 @@ print(f"正在处理目录：{subtitle_directory}")
 if not os.path.isdir(subtitle_directory):
     print(f"目录 {subtitle_directory} 不存在，请检查路径是否正确。")
     exit()
+
+# 过滤特效字幕函数（根据样式、位置等条件）
+def is_effect_subtitle(event):
+    # 过滤条件1: 判断是否是特效字幕（通过样式名判断）
+    effect_styles = ["top", "scroll", "move", "notice", "tip"]  # 样式名称中包含这些关键字的被认为是特效字幕
+    if any(style in event.style.lower() for style in effect_styles):
+        return True
+
+    # 过滤条件2: 判断是否包含特殊的 ASS 标签控制（如滚动、移动、位置）
+    special_tags = ["\\move", "\\pos", "\\fade", "\\an"]  # 包含这些标签的认为是特效字幕
+    if any(tag in event.text for tag in special_tags):
+        return True
+
+    # 过滤条件3: 判断是否包含特定的滚动字幕文本（如广告语句）
+    special_texts = ["仅供学习使用", "请于24小时内删除", "更多资源请访问"]  # 包含这些文字的认为是特效字幕
+    if any(text in event.text for text in special_texts):
+        return True
+
+    # 如果都不符合，认为是正常字幕
+    return False
 
 # 遍历指定目录下所有 .ass 和 .srt 文件
 for filename in os.listdir(subtitle_directory):
@@ -50,10 +70,14 @@ for filename in os.listdir(subtitle_directory):
             try:
                 # 加载 .ass 文件并转换为 .srt 格式
                 subs = pysubs2.load(file_path, encoding=detected_encoding)
+                
+                # 移除特效字幕，只保留正常字幕事件
+                subs.events = [event for event in subs.events if not is_effect_subtitle(event)]
+                
                 # 转换后的文件路径（使用 .srt 作为后缀）
                 srt_file_path = os.path.join(subtitle_directory, f"{os.path.splitext(filename)[0]}.srt")
                 subs.save(srt_file_path, encoding="utf-8")
-                print(f"转换完成：{file_path} -> {srt_file_path}")
+                print(f"转换完成并过滤特效字幕：{file_path} -> {srt_file_path}")
                 
                 # 删除原始 .ass 文件
                 os.remove(file_path)
