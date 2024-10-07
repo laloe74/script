@@ -2,6 +2,9 @@
 
 ---
 
+### IINA.conf
+IINA 快捷键配置文件
+
 ### subs.py
 调整字幕时间 & 转换繁体转简体 & ass2srt
 
