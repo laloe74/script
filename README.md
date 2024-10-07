@@ -2,6 +2,9 @@
 
 ---
 
+### subs.py
+调整字幕时间 & 转换繁体转简体
+
 ### film.py
 NeoDB表格转博客Markdown格式
 
