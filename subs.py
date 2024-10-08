@@ -9,7 +9,7 @@ import chardet  # 用于自动检测文件编码
 from opencc import OpenCC  # 用于繁体转换为简体
 
 # 设置时间调整值（负值表示提前，单位为秒）
-time_adjustment = 0
+time_adjustment = 4
 
 # 初始化 OpenCC，用于繁体转换为简体
 cc = OpenCC('t2s')  # 't2s' 表示繁体转简体

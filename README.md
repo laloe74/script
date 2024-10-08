@@ -2,6 +2,9 @@
 
 ---
 
+### homebrew.sh
+通过Homebrew批量安装应用
+
 ### IINA.conf
 IINA 快捷键配置文件
 
