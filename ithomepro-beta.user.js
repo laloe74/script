@@ -68,7 +68,8 @@
             '#paragraph > div.tougao-user:nth-child(2)', '#login-guide-box', '.dajia',
             '#paragraph > div.tagging1:last-child',
             '#paragraph > p.ad-tips',
-            '[id^="ad-id-"]'
+            '[id^="ad-id-"]',
+            'div.-hongbao-container.bb:nth-child(6)',
         ];
 
         selectors.forEach(selector => {
