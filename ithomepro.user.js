@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         IThome Pro - IT之家高级优化版 2024
-// @version      3.8
+// @version      3.9
 // @description  优化ithome网页端浏览效果
 // @match        *://*.ithome.com/*
 // @run-at       document-start
