@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         IThome Pro - Beta
+// @name         IThome Pro
 // @version      3.9
 // @description  优化ithome网页端浏览效果
 // @match        *://*.ithome.com/*
