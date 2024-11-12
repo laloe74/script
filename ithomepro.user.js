@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         IThome Pro - IT之家高级优化版 2024
+// @name         IThome Pro - Beta
 // @version      3.9
 // @description  优化ithome网页端浏览效果
 // @match        *://*.ithome.com/*
@@ -12,47 +12,44 @@
 (function() {
     'use strict';
 
-    // Function to keep the page active by simulating clicks
-    function keepPageActive() {
-        const event = new MouseEvent('click', {
-            view: window,
-            bubbles: true,
-            cancelable: true,
-            clientX: 0, // 点击页面左上角，通常是空白区域
-            clientY: 0
-        });
-        document.dispatchEvent(event);
-    }
-
-    // Set an interval to keep the page active every 0.2 seconds
-    const intervalId = setInterval(keepPageActive, 200);
-
-    // Stop the interval after 5 seconds
-    setTimeout(() => {
-        clearInterval(intervalId);
-    }, 1000);
-
-    // 定义样式用于立即隐藏页面内容
+    // 定义样式-hideStyle：不透明度 0
     const hideStyle = document.createElement('style');
     hideStyle.innerHTML = `body { opacity: 0; }`;
     document.head.appendChild(hideStyle);
 
-    // 针对 https://www.ithome.com 页面执行逻辑
+    // 跳转到 blog 页面，加载完成前隐藏原始页面
     if (window.location.href === 'https://www.ithome.com' || window.location.href === 'https://www.ithome.com/') {
-        // 立即隐藏 主页 页面内容
         document.head.appendChild(hideStyle);
-        // 跳转到 blog 页面
         window.location.replace('https://www.ithome.com/blog/');
         return;
     }
 
-    // 针对 https://www.ithome.com/blog/ 页面执行逻辑
+    // blog 页面加载完成前隐藏原始页面
     if (window.location.href.startsWith('https://www.ithome.com/blog/')) {
-        // 立即隐藏 blog 页面内容
         document.head.appendChild(hideStyle);
     }
 
-    // Function to hide elements based on AdGuard rules
+    // 函数：保持页面激活，这样可以去除弹出的登录框
+    function keepPageActive() {
+        const event = new Event('mousemove', { bubbles: true, cancelable: true });
+
+        // 设置定时器，每0.1秒触发一次事件
+        const intervalId = setInterval(() => {
+            document.dispatchEvent(event);
+        }, 100); // 0.1秒（100毫秒）
+
+        // 5秒后停止定时器
+        setTimeout(() => {
+            clearInterval(intervalId);
+            console.log('Stopped keeping page active.');
+        }, 5000); // 5秒（5000毫秒）
+    }
+
+    // [调用] 保持页面激活
+    keepPageActive();
+
+
+    // 函数：净化页面 利用 AdGuard 规则
     function hideElements() {
         const selectors = [
             '#nav', '#top', '#tt', '#list > div.fr.fx:last-child', '#side_func',
@@ -82,15 +79,17 @@
         });
     }
 
-    // Function to process and set rounded images
+    // 函数：图片处理 - 圆角、边框
     function processImage(image) {
+        // 这部分匹配到的图片不处理
+        if (image.closest('#post_comm')) return;
         if (image.classList.contains('titleLogo')) return;
         if (image.classList.contains('lazy') && image.classList.contains('emoji')) return;
         if (image.classList.contains('ruanmei-emoji') && image.classList.contains('emoji')) return;
         if (image.id === 'image-viewer' || image.classList.contains('zoomed')) return;
-        if (image.classList.contains('comment-image')) return; // 排除带有评论区特征的图片
-       
-        // 图片
+        if (image.classList.contains('comment-image')) return;
+
+        // 首页图片
         if (image.closest('a.img')) {
             const anchor = image.closest('a.img');
             if (!anchor.classList.contains('processed')) {
@@ -100,7 +99,7 @@
                 anchor.style.overflow = 'hidden';
                 anchor.classList.add('processed');
             }
-        // 视频
+        // 视频预览图
         } else if (image.closest('.ithome_super_player')) {
             const videoPlayer = image.closest('.ithome_super_player');
             if (!videoPlayer.parentNode.classList.contains('processed')) {
@@ -115,7 +114,7 @@
                 videoPlayer.parentNode.insertBefore(wrapper, videoPlayer);
                 wrapper.appendChild(videoPlayer);
 
-                // 设置预览图根据父元素高度调整
+                // 视频预览图根据父元素高度调整
                 const img = videoPlayer.querySelector('img');
                 if (img) {
                     const imgWidth = img.getAttribute('w');
@@ -133,12 +132,13 @@
                     }
                 }
             }
-        // 头像修正
         } else {
+            // 常规图片
             if (image.width >= 30) {
                 image.style.borderRadius = '12px';
                 image.style.border = '3px solid #CCC';
             }
+            // 限制图片最大宽度 - 解决正文里长图过多的问题
             if (image.width >= 30 && image.height > 150) {
                 image.style.borderRadius = '12px';
                 image.style.border = '3px solid #CCC';
@@ -150,20 +150,23 @@
         }
     }
 
-    // Function to set rounded images on all img elements
+    // [调用] 图片处理
     function setRoundedImages() {
         document.querySelectorAll('img').forEach(image => processImage(image));
     }
 
-    // Function to wrap images in <p> tags
+    // 函数：多图连续排列时插入间隔
     function wrapImagesInP() {
         if (window.location.href.startsWith('https://www.ithome.com/blog/')) return;
         document.querySelectorAll('img').forEach(image => {
+            // 这部分匹配到的图片不处理
+            if (image.closest('#post_comm')) return;
             if (image.closest('.ithome_super_player')) return;
             if (image.classList.contains('ruanmei-emoji') && image.classList.contains('emoji')) return;
             if (image.classList.contains('ithome_super_player')) return;
             if (image.parentNode.tagName.toLowerCase() === 'p' && image.parentNode.children.length === 1) return;
-            if (image.width < 25 || image.height < 20) return; // 排除编辑标识
+            if (image.width < 25 || image.height < 20) return;
+
             const p = document.createElement('p');
             p.style.textAlign = 'center';
             p.style.margin = '0';
@@ -173,7 +176,7 @@
         });
     }
 
-    // Function to process specific iframes
+    // 函数：视频处理 - 圆角、边框
     function processIframes() {
         const iframes = document.querySelectorAll('.content .post_content iframe.ithome_video, .content .post_content iframe[src*="player.bilibili.com"]');
 
@@ -189,7 +192,7 @@
         });
     }
 
-    // Function to set rounded corners for comments
+    // 函数：评论区圆角
     function setRounded() {
         const roundeds = document.querySelectorAll(
             '.comm_list ul.list li.entry ul.reply, .content .post_content blockquote, ' +
@@ -207,14 +210,15 @@
         });
     }
 
-    // Function to remove specific ads
+    // 函数：移除首页信息流广告
     function removeAds() {
         document.querySelectorAll('div.bb.clearfix > div.fl > ul.bl > li').forEach(element => {
             if (element.querySelector('div.c > div.m:empty')) element.remove();
         });
     }
 
-    // Automatically click the "Load More" button
+
+    // 函数：自动点击「加载更多」按钮
     function autoClickLoadMore() {
         const loadMoreButton = document.querySelector('a.more');
 
@@ -229,7 +233,7 @@
 
             observer.observe(loadMoreButton);
 
-            // 监听DOM变化，重新观察按钮
+            // 监听DOM变化
             const mutationObserver = new MutationObserver(() => {
                 const newLoadMoreButton = document.querySelector('a.more');
                 if (newLoadMoreButton && !observer.observe(newLoadMoreButton)) {
@@ -241,72 +245,23 @@
         }
     }
 
-    // Function to handle new nodes for comment images
-    function handleNewNodes(nodes) {
-        nodes.forEach((node) => {
-            if (node.nodeType === Node.ELEMENT_NODE) {
-                if (node.matches('.post-img-list.c-1')) {
-                    decodeAndDisplayImage(node);
-                }
-                // 递归处理子节点
-                node.querySelectorAll('.post-img-list.c-1').forEach((childNode) => {
-                    decodeAndDisplayImage(childNode);
-                });
-            }
-        });
+    // 函数：评论加载
+    function forceLoadComments() {
+        const footer = document.querySelector("#post_comm");
+
+        const spacer = document.createElement("div");
+        spacer.style.height = "100vh";
+        spacer.style.visibility = "hidden";
+        document.body.appendChild(spacer);
+
+        window.scrollTo(0, document.body.scrollHeight);
+
+        spacer.remove();
+        window.scrollTo(0, 0);
     }
 
-// Function to decode and display images in comments
-function decodeAndDisplayImages(node) {
-    try {
-        // 获取当前容器中所有的 img-placeholder
-        const spanList = node.querySelectorAll('span.img-placeholder');
-        spanList.forEach(span => {
-            const dataS = span.getAttribute('data-s');
-            if (dataS) {
-                let decodedUrl;
-                try {
-                    decodedUrl = atob(dataS); // 解码 Base64 字符串
-                } catch (error) {
-                    console.error("图片 URL 解码失败：", error, dataS);
-                    return; // 解码失败时退出
-                }
 
-                const img = document.createElement('img');
-                img.src = decodedUrl;
-                img.classList.add('comment-image');
-                img.style.maxWidth = '200px';
-                img.style.display = 'block';
-                img.style.marginLeft = '0';
-                img.style.border = '1px solid rgb(204, 204, 204)';
-                img.style.borderRadius = '12px';
-                img.style.cursor = 'pointer';
-
-                let isZoomed = false;
-                img.addEventListener('click', function () {
-                    if (!isZoomed) {
-                        img.style.maxWidth = '100%';
-                        img.style.height = 'auto';
-                        img.style.cursor = 'zoom-out';
-                        isZoomed = true;
-                    } else {
-                        img.style.maxWidth = '200px';
-                        img.style.height = 'auto';
-                        img.style.cursor = 'pointer';
-                        isZoomed = false;
-                    }
-                });
-
-                span.innerHTML = ''; // 清空 span 内容
-                span.appendChild(img); // 添加 img 元素
-            }
-        });
-    } catch (e) {
-        console.error("处理图片时出错：", e, node);
-    }
-}
-
-    // Observe DOM changes and apply styles/changes dynamically
+    // 函数：观察DOM变化，处理新刷出的内容
     function observeDOM() {
         const observer = new MutationObserver(mutationsList => {
             for (const mutation of mutationsList) {
@@ -316,19 +271,7 @@ function decodeAndDisplayImages(node) {
                     setRounded();
                     removeAds();
                     hideElements();
-                    mutation.addedNodes.forEach((node) => {
-                        if (node.nodeType === Node.ELEMENT_NODE) {
-                            // 检查是否是图片列表并进行处理
-                            if (node.matches('.post-img-list')) {
-                                decodeAndDisplayImages(node);
-                            }
-                            // 检查新加入的节点内部是否包含图片列表
-                            node.querySelectorAll('.post-img-list').forEach((childNode) => {
-                                decodeAndDisplayImages(childNode);
-                            });
-                        }
-                    });
-                    wrapImagesInP();
+
                 }
             }
         });
@@ -336,27 +279,19 @@ function decodeAndDisplayImages(node) {
         observer.observe(document.body, { childList: true, subtree: true });
     }
 
-    // Initial processing for existing comment images
-    document.querySelectorAll('.post-img-list.c-1').forEach((node) => {
-        decodeAndDisplayImage(node);
-    });
 
-    document.querySelectorAll('.post-img-list').forEach((node) => {
-        decodeAndDisplayImages(node);
-    });
 
-    // Event listeners
+    // 监听事件
     window.addEventListener('scroll', autoClickLoadMore);
     window.addEventListener('load', function() {
         hideElements();
+        forceLoadComments()
         removeAds();
         wrapImagesInP();
-        setRoundedImages();
         setRounded();
         processIframes();
+        setRoundedImages();
         observeDOM();
-        removeAds();
-        wrapImagesInP();
         document.body.style.opacity = '1';
 
         // 处理图片懒加载

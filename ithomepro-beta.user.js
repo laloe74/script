@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         IThome Pro - Beta
-// @version      3.8.1
+// @version      3.9
 // @description  优化ithome网页端浏览效果
 // @match        *://*.ithome.com/*
 // @run-at       document-start
@@ -32,12 +32,12 @@
     // 函数：保持页面激活，这样可以去除弹出的登录框
     function keepPageActive() {
         const event = new Event('mousemove', { bubbles: true, cancelable: true });
-        
+
         // 设置定时器，每0.1秒触发一次事件
         const intervalId = setInterval(() => {
             document.dispatchEvent(event);
         }, 100); // 0.1秒（100毫秒）
-    
+
         // 5秒后停止定时器
         setTimeout(() => {
             clearInterval(intervalId);
@@ -82,12 +82,13 @@
     // 函数：图片处理 - 圆角、边框
     function processImage(image) {
         // 这部分匹配到的图片不处理
+        if (image.closest('#post_comm')) return;
         if (image.classList.contains('titleLogo')) return;
         if (image.classList.contains('lazy') && image.classList.contains('emoji')) return;
         if (image.classList.contains('ruanmei-emoji') && image.classList.contains('emoji')) return;
         if (image.id === 'image-viewer' || image.classList.contains('zoomed')) return;
         if (image.classList.contains('comment-image')) return;
-       
+
         // 首页图片
         if (image.closest('a.img')) {
             const anchor = image.closest('a.img');
@@ -159,12 +160,13 @@
         if (window.location.href.startsWith('https://www.ithome.com/blog/')) return;
         document.querySelectorAll('img').forEach(image => {
             // 这部分匹配到的图片不处理
+            if (image.closest('#post_comm')) return;
             if (image.closest('.ithome_super_player')) return;
             if (image.classList.contains('ruanmei-emoji') && image.classList.contains('emoji')) return;
             if (image.classList.contains('ithome_super_player')) return;
             if (image.parentNode.tagName.toLowerCase() === 'p' && image.parentNode.children.length === 1) return;
             if (image.width < 25 || image.height < 20) return;
-            
+
             const p = document.createElement('p');
             p.style.textAlign = 'center';
             p.style.margin = '0';
@@ -215,6 +217,7 @@
         });
     }
 
+
     // 函数：自动点击「加载更多」按钮
     function autoClickLoadMore() {
         const loadMoreButton = document.querySelector('a.more');
@@ -242,68 +245,21 @@
         }
     }
 
-    // 函数：处理评论区图片
-    function handleNewNodes(nodes) {
-        nodes.forEach((node) => {
-            if (node.nodeType === Node.ELEMENT_NODE) {
-                if (node.matches('.post-img-list.c-1')) {
-                    decodeAndDisplayImage(node);
-                }
-                node.querySelectorAll('.post-img-list.c-1').forEach((childNode) => {
-                    decodeAndDisplayImage(childNode);
-                });
-            }
-        });
+    // 函数：评论加载
+    function forceLoadComments() {
+        const footer = document.querySelector("#post_comm");
+
+        const spacer = document.createElement("div");
+        spacer.style.height = "100vh";
+        spacer.style.visibility = "hidden";
+        document.body.appendChild(spacer);
+
+        window.scrollTo(0, document.body.scrollHeight);
+
+        spacer.remove();
+        window.scrollTo(0, 0);
     }
 
-    // 函数：解码评论区图片
-    function decodeAndDisplayImages(node) {
-        try {
-            const spanList = node.querySelectorAll('span.img-placeholder');
-            spanList.forEach(span => {
-                const dataS = span.getAttribute('data-s');
-                if (dataS) {
-                    let decodedUrl;
-                    try {
-                        decodedUrl = atob(dataS);
-                    } catch (error) {
-                        console.error("图片 URL 解码失败：", error, dataS);
-                        return;
-                    }
-
-                    const img = document.createElement('img');
-                    img.src = decodedUrl;
-                    img.classList.add('comment-image');
-                    img.style.maxWidth = '200px';
-                    img.style.display = 'block';
-                    img.style.marginLeft = '0';
-                    img.style.border = '1px solid rgb(204, 204, 204)';
-                    img.style.borderRadius = '12px';
-                    img.style.cursor = 'pointer';
-
-                    let isZoomed = false;
-                    img.addEventListener('click', function () {
-                        if (!isZoomed) {
-                            img.style.maxWidth = '100%';
-                            img.style.height = 'auto';
-                            img.style.cursor = 'zoom-out';
-                            isZoomed = true;
-                        } else {
-                            img.style.maxWidth = '200px';
-                            img.style.height = 'auto';
-                            img.style.cursor = 'pointer';
-                            isZoomed = false;
-                        }
-                    });
-
-                    span.innerHTML = '';
-                    span.appendChild(img);
-                }
-            });
-        } catch (e) {
-            console.error("处理图片时出错：", e, node);
-        }
-    }
 
     // 函数：观察DOM变化，处理新刷出的内容
     function observeDOM() {
@@ -315,17 +271,7 @@
                     setRounded();
                     removeAds();
                     hideElements();
-                    mutation.addedNodes.forEach((node) => {
-                        if (node.nodeType === Node.ELEMENT_NODE) {
-                            if (node.matches('.post-img-list')) {
-                                decodeAndDisplayImages(node);
-                            }
-                            node.querySelectorAll('.post-img-list').forEach((childNode) => {
-                                decodeAndDisplayImages(childNode);
-                            });
-                        }
-                    });
-                    wrapImagesInP();
+
                 }
             }
         });
@@ -333,26 +279,19 @@
         observer.observe(document.body, { childList: true, subtree: true });
     }
 
-    document.querySelectorAll('.post-img-list.c-1').forEach((node) => {
-        decodeAndDisplayImage(node);
-    });
 
-    document.querySelectorAll('.post-img-list').forEach((node) => {
-        decodeAndDisplayImages(node);
-    });
 
     // 监听事件
     window.addEventListener('scroll', autoClickLoadMore);
     window.addEventListener('load', function() {
         hideElements();
+        forceLoadComments()
         removeAds();
         wrapImagesInP();
-        setRoundedImages();
         setRounded();
         processIframes();
+        setRoundedImages();
         observeDOM();
-        removeAds();
-        wrapImagesInP();
         document.body.style.opacity = '1';
 
         // 处理图片懒加载
