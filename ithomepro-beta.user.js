@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         IThome Pro - Beta
-// @version      4.1.1
+// @version      4.2.1
 // @description  优化ithome网页端浏览效果
 // @match        *://*.ithome.com/*
 // @run-at       document-start
@@ -11,6 +11,9 @@
 
 (function() {
     'use strict';
+
+    // 启用评论框：true：启用 false：关闭
+    const showCommentBox = false;
 
     // 定义样式-hideStyle：不透明度 0
     const hideStyle = document.createElement('style');
@@ -52,6 +55,7 @@
     // 函数：净化页面 利用 AdGuard 规则
     function hideElements() {
         const selectors = [
+            ...(!showCommentBox ? ['#postcomment3'] : []),
             '#nav', '#top', '#tt', '#list > div.fr.fx:last-child', '#side_func',
             '#dt > div.fl.content:first-child > div.cv:first-child', '#dt > div.fr.fx:last-child',
             '#dt > div.fl.content:first-child > div.newsgrade:nth-child(6)',
@@ -64,7 +68,7 @@
             '#rm-login-modal > div.modal.has-title.loaded',
             '#dt > div.fl.content:first-child > div.related_post:nth-child(8)',
             '#dt > div.fl.content:first-child > div.newserror:nth-child(5)',
-            '#paragraph > p.ad-tips:last-child', '#postcomment3', '#fls', '#fi', '#lns',
+            '#paragraph > p.ad-tips:last-child', '#fls', '#fi', '#lns',
             '#paragraph > div.tougao-user:nth-child(2)', '#login-guide-box', '.dajia',
             '#paragraph > div.tagging1:last-child',
             '#paragraph > p.ad-tips',
@@ -137,7 +141,7 @@
             if (image.height > 1000) {
                 image.style.borderRadius = '12px';
                 image.style.border = '3px solid #CCC';
-                image.style.width = '400px'; 
+                image.style.width = '400px';
                 image.style.maxWidth = '400px';
                 image.style.height = 'auto';
                 image.style.objectFit = 'cover';
@@ -159,10 +163,10 @@
     // 函数：头像处理
     function styleHeaderImage() {
         const headerImages = document.querySelectorAll('.list .entry .headerimage');
-        
+
         headerImages.forEach(image => {
             image.style.borderRadius = '12px';
-            image.style.border = '2px solid #eee';
+            image.style.border = '3px solid #CCC';
         });
     }
 
