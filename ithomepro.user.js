@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         IThome Pro
-// @version      4.0
+// @version      4.1
 // @description  优化ithome网页端浏览效果
 // @match        *://*.ithome.com/*
 // @run-at       document-start
@@ -156,6 +156,16 @@
         document.querySelectorAll('img').forEach(image => processImage(image));
     }
 
+    // 函数：头像处理
+    function styleHeaderImage() {
+        const headerImages = document.querySelectorAll('.list .entry .headerimage');
+        
+        headerImages.forEach(image => {
+            image.style.borderRadius = '12px';
+            image.style.border = '2px solid #eee';
+        });
+    }
+
     // 函数：多图连续排列时插入间隔
     function wrapImagesInP() {
         if (window.location.href.startsWith('https://www.ithome.com/blog/')) return;
@@ -193,7 +203,7 @@
         });
     }
 
-    // 函数：评论区圆角
+    // 函数：页面样式圆角
     function setRounded() {
         const roundeds = document.querySelectorAll(
             '.comm_list ul.list li.entry ul.reply, .content .post_content blockquote, ' +
@@ -272,6 +282,7 @@
                     removeAds();
                     hideElements();
                     setRoundedImages();
+                    styleHeaderImage()
                 }
             }
         });
@@ -291,6 +302,7 @@
         setRounded();
         processIframes();
         setRoundedImages();
+        styleHeaderImage()
         observeDOM();
         document.body.style.opacity = '1';
 
