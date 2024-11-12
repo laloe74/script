@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         IThome Pro - Beta
-// @version      3.9
+// @version      4.0.0
 // @description  优化ithome网页端浏览效果
 // @match        *://*.ithome.com/*
 // @run-at       document-start
@@ -133,19 +133,20 @@
                 }
             }
         } else {
-            // 常规图片
-            if (image.width >= 30) {
+            // 超长图片宽度 400px
+            if (image.height > 1000) {
                 image.style.borderRadius = '12px';
                 image.style.border = '3px solid #CCC';
-            }
-            // 限制图片最大宽度 - 解决正文里长图过多的问题
-            if (image.width >= 30 && image.height > 150) {
-                image.style.borderRadius = '12px';
-                image.style.border = '3px solid #CCC';
+                image.style.width = '400px'; 
                 image.style.maxWidth = '400px';
                 image.style.height = 'auto';
                 image.style.objectFit = 'cover';
                 image.style.overflow = 'hidden';
+            // 常规图片宽度 650px
+            } else {
+                image.style.borderRadius = '12px';
+                image.style.border = '3px solid #CCC';
+                image.style.maxWidth = '650px';
             }
         }
     }
@@ -266,12 +267,11 @@
         const observer = new MutationObserver(mutationsList => {
             for (const mutation of mutationsList) {
                 if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-                    setRoundedImages();
                     wrapImagesInP();
                     setRounded();
                     removeAds();
                     hideElements();
-
+                    setRoundedImages();
                 }
             }
         });
