@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         IThome Pro - Beta
-// @version      4.3.0
+// @version      4.3.1
 // @description  优化ithome网页端浏览效果
 // @match        *://*.ithome.com/*
 // @run-at       document-start
@@ -388,39 +388,6 @@
     setDivWidthTo590();
   }
 
-  function toggleImageSize() {
-    // Select all images inside any '.post-img-list' container
-    const imageWrappers = document.querySelectorAll(
-      ".post-img-list .img-wrapper",
-    );
-
-    imageWrappers.forEach((wrapper) => {
-      const img = wrapper.querySelector("img");
-
-      // Prevent default action and stop propagation to prevent #image-viewer from appearing
-      wrapper.addEventListener("click", (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-      });
-
-      // Toggle the image size on click
-      img.addEventListener("click", (event) => {
-        event.stopPropagation(); // Prevent propagation to higher elements
-        if (!img.classList.contains("expanded")) {
-          // Expand the image to 100% width of its parent container
-          img.style.width = "100%";
-          img.style.height = "auto"; // Maintain aspect ratio
-          img.classList.add("expanded");
-        } else {
-          // Restore the image to its original size
-          img.style.width = ""; // Clear inline width
-          img.style.height = ""; // Clear inline height
-          img.classList.remove("expanded");
-        }
-      });
-    });
-  }
-
   // 评论区图片放大
   function replaceImageWrapper() {
     const imageWrappers = document.querySelectorAll(
@@ -442,16 +409,16 @@
         img.style.borderRadius = "12px";
         img.style.border = "3px solid #CCC";
 
-        let isZoomed = false; // 记录当前状态
+        let isZoomed = false;
 
         img.addEventListener("click", () => {
           if (isZoomed) {
-            img.style.width = "30%"; // 恢复到400px
+            img.style.width = "30%";
           } else {
-            img.style.width = "100%"; // 放大到100%
+            img.style.width = "100%";
           }
-          img.style.height = "auto"; // 确保高度自适应
-          isZoomed = !isZoomed; // 切换状态
+          img.style.height = "auto";
+          isZoomed = !isZoomed;
         });
       }
     });
@@ -469,7 +436,6 @@
           setRoundedImages();
           styleHeaderImage();
           initializePage();
-          toggleImageSize();
           replaceImageWrapper();
         }
       }
@@ -490,7 +456,6 @@
     setRoundedImages();
     styleHeaderImage();
     initializePage();
-    toggleImageSize();
     replaceImageWrapper();
     observeDOM();
     document.body.style.opacity = "1";
