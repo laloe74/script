@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         IThome Pro - Beta
-// @version      4.3.1
+// @version      4.4.0
 // @description  优化ithome网页端浏览效果
 // @match        *://*.ithome.com/*
 // @run-at       document-start
@@ -307,8 +307,8 @@
     window.scrollTo(0, 0);
   }
 
+  // 函数：首页卡片样式
   function initializePage() {
-    // 1. 设置首页的块为可点击状态
     function makeListItemsClickable() {
       const listItems = document.querySelectorAll(".bl > li");
 
@@ -324,29 +324,25 @@
         li.parentNode.insertBefore(wrapper, li);
         wrapper.appendChild(li);
 
-        const titleLink = li.querySelector("h2 a"); // Target the title link inside <h2>
+        const titleLink = li.querySelector("h2 a");
 
         if (titleLink) {
-          // Replace the title link with plain text
           const titleText = document.createTextNode(titleLink.textContent);
-          titleLink.replaceWith(titleText); // Remove <a>, keeping the text only
+          titleLink.replaceWith(titleText);
 
-          // Make the wrapper clickable instead
           wrapper.style.cursor = "pointer";
           wrapper.addEventListener("click", () => {
             window.open(titleLink.href, titleLink.target || "_self");
           });
 
           wrapper.addEventListener("mouseover", () => {
-            //wrapper.style.transform = "scale(1.02)";
             wrapper.style.transition =
               "transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease";
             wrapper.style.boxShadow = "0px 6px 15px rgba(0, 0, 0, 0.2)";
-            wrapper.style.backgroundColor = "#f9f9f9";
+            wrapper.style.backgroundColor = getBackgroundColor();
           });
 
           wrapper.addEventListener("mouseout", () => {
-            //wrapper.style.transform = "scale(1)";
             wrapper.style.boxShadow = "none";
             wrapper.style.backgroundColor = "transparent";
           });
@@ -354,7 +350,6 @@
       });
     }
 
-    // 2. 设置所有 class 为 "fl" 的 <div> 元素的宽度
     function setHome() {
       const divs = document.querySelectorAll("div.fl");
       divs.forEach((div) => {
@@ -362,7 +357,6 @@
       });
     }
 
-    // 3. 移除所有 class 为 'hover-wrapper' 的 div 内的 <li> 元素的 margin-top
     function removeMarginTop() {
       const hoverWrappers = document.querySelectorAll(".hover-wrapper");
       hoverWrappers.forEach((hoverWrapper) => {
@@ -373,7 +367,6 @@
       });
     }
 
-    // 4. 设置所有 class 为 "c" 的 <div> 元素的宽度
     function setDivWidthTo590() {
       const divs = document.querySelectorAll("div.c");
       divs.forEach((div) => {
@@ -381,14 +374,24 @@
       });
     }
 
-    // 调用整合的功能
+    function getBackgroundColor() {
+      if (
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+      ) {
+        return "#333333";
+      } else {
+        return "#f9f9f9";
+      }
+    }
+
     makeListItemsClickable();
     setHome();
     removeMarginTop();
     setDivWidthTo590();
   }
 
-  // 评论区图片放大
+  // 函数：评论区图片放大
   function replaceImageWrapper() {
     const imageWrappers = document.querySelectorAll(
       ".post-img-list a.img-wrapper",
