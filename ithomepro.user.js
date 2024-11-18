@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         IThome Pro
-// @version      4.4
+// @version      4.5
 // @description  优化ithome网页端浏览效果
 // @match        *://*.ithome.com/*
 // @run-at       document-start
@@ -336,8 +336,6 @@
           });
 
           wrapper.addEventListener("mouseover", () => {
-            wrapper.style.transition =
-              "transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease";
             wrapper.style.boxShadow = "0px 6px 15px rgba(0, 0, 0, 0.2)";
             wrapper.style.backgroundColor = getBackgroundColor();
           });
