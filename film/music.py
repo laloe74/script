@@ -1,6 +1,9 @@
 # 自动下载最高质量音频，提取音频
 # yt-dlp -f bestaudio --extract-audio -o "~/Music/yt/%(title)s.%(ext)s" 
 
+# 裁剪前36秒
+# ffmpeg -ss 36 -i "input.opus" -acodec copy "output.opus"
+
 import os
 import subprocess
 
