@@ -1,3 +1,9 @@
+//
+// <p class="post-img-list c-2">
+//    <a class="img-wrapper" href="https://img.ithome.com/img/cmt/2024/11/19/ca694651-320b-470d-929c-4b3309eac80d.jpg?x-bce-process=image/format,f_avif" target="_blank" style="background-image:url(https://img.ithome.com/img/cmt/2024/11/19/ca694651-320b-470d-929c-4b3309eac80d.jpg?x-bce-process=image/format,f_avif)"></a>
+//    <a class="img-wrapper" href="https://img.ithome.com/img/cmt/2024/11/19/c8cee810-b1aa-4338-84b4-a3b40507030a.jpg?x-bce-process=image/format,f_avif" target="_blank" style="background-image:url(https://img.ithome.com/img/cmt/2024/11/19/c8cee810-b1aa-4338-84b4-a3b40507030a.jpg?x-bce-process=image/format,f_avif)"></a>
+// </p>
+
 // ==UserScript==
 // @name         IThome Pro - Beta
 // @version      4.5.0

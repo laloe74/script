@@ -1,3 +1,6 @@
+# 自动下载最高质量音频，提取音频
+# yt-dlp -f bestaudio --extract-audio -o "~/Music/yt/%(title)s.%(ext)s" 
+
 import os
 import subprocess
 
