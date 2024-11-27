@@ -21,6 +21,7 @@ software_list=(
     "rectangle"
     "foobar2000"
     "gpg-suite"
+    "wechat"
 )
 
 # 逐个检查并安装软件
