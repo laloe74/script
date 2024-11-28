@@ -22,6 +22,7 @@ software_list=(
     "foobar2000"
     "gpg-suite"
     "wechat"
+    "hiddenbar"
 )
 
 # 逐个检查并安装软件

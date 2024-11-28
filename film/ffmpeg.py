@@ -42,7 +42,8 @@ from datetime import datetime
 # [5]：改变分辨率[默认1080P]
 # [6]：提取音频
 # [7]：裁剪视频
-FFmpeg = 1
+# [8]: 直接转换
+FFmpeg = 8
 
 # 目标格式
 target_ext = ".mp4"
@@ -120,6 +121,8 @@ def convert_video(input_path, output_path):
             command = ['ffmpeg', '-i', input_path, '-vn', '-c:a', 'copy', output_path]
         elif FFmpeg == 7:
             command = ['ffmpeg', '-ss', '[start]','-i', input_path, '-to', '[end]', '-c', 'copy', output_path]  # 00:01:50
+        elif FFmpeg == 8:
+            command = ['ffmpeg','-i', input_path, output_path]
 
 
         process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
