@@ -1,6 +1,6 @@
 # macOS桌面创建「from」文件夹，待转换视频拖进去。
 # pip install ffmpeg-python
-# python ffmpeg.py
+# python3 ./film/ffmpeg.py
 #
 # Encoder hevc_videotoolbox [VideoToolbox H.265 Encoder]:
 #    General capabilities: dr1 delay hardware
