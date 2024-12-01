@@ -43,7 +43,7 @@ from datetime import datetime
 # [6]：提取音频
 # [7]：裁剪视频
 # [8]: 直接转换
-FFmpeg = 8
+FFmpeg = 2
 
 # 目标格式
 target_ext = ".mp4"
@@ -110,7 +110,7 @@ def convert_video(input_path, output_path):
         if FFmpeg == 1:
             command = ['ffmpeg', '-i', input_path, '-c', 'copy', output_path]
         elif FFmpeg == 2:
-            command = ['ffmpeg', '-i', input_path, '-c:v', 'hevc_videotoolbox', output_path]
+            command = ['ffmpeg', '-i', input_path, '-c:v', 'hevc_videotoolbox', '-c:a', 'aac', output_path]
         elif FFmpeg == 3:
             command = ['ffmpeg', '-i', input_path, '-c:v', 'libx265', '-crf', '28', '-preset', 'ultrafast', '-c:a', 'aac', '-b:a', '128k', output_path]
         elif FFmpeg == 4:
