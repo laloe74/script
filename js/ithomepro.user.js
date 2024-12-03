@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         IThome Pro
-// @version      4.5
+// @version      4.6
 // @description  优化ithome网页端浏览效果
 // @match        *://*.ithome.com/*
 // @run-at       document-start
@@ -155,7 +155,7 @@
         }
       }
     } else {
-      // 超长图片宽度 400px
+      // 超长图片宽度 450px
       if (image.height > 1000) {
         image.style.borderRadius = "12px";
         image.style.border = "3px solid #CCC";
@@ -164,11 +164,11 @@
         image.style.height = "auto";
         image.style.objectFit = "cover";
         image.style.overflow = "hidden";
-        // 常规图片宽度 650px
+        // 常规图片宽度 450px
       } else {
         image.style.borderRadius = "12px";
         image.style.border = "3px solid #CCC";
-        image.style.maxWidth = "650px";
+        image.style.maxWidth = "450px";
       }
     }
   }
