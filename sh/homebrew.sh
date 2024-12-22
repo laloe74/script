@@ -23,6 +23,9 @@ software_list=(
     "gpg-suite"
     "wechat"
     "hiddenbar"
+    "obsidian"
+    "font-ibm-plex-sans-sc"
+    "font-ibm-plex-mono"
 )
 
 # 逐个检查并安装软件
