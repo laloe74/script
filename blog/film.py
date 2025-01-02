@@ -9,7 +9,7 @@ from datetime import datetime
 # 定义文件路径，使用 os.path.expanduser() 将路径中的 ~ 替换为绝对路径
 input_file = os.path.expanduser('~/Desktop/marks.xlsx') 
 output_excel = os.path.expanduser('~/Desktop/film.xlsx') 
-output_markdown = os.path.expanduser('/Users/laloe74/Project/keooq/content/pages/film.md')  # 直接更新博客文件
+output_markdown = os.path.expanduser('/Users/keo/Project/keooq/content/pages/film.md')  # 直接更新博客文件
 
 # 读取指定的分表「看过」
 df = pd.read_excel(input_file, sheet_name='看过')
