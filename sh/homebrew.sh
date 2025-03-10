@@ -26,6 +26,13 @@ software_list=(
     "obsidian"
     "font-ibm-plex-sans-sc"
     "font-ibm-plex-mono"
+    "cherry-studio"
+    "visual-studio-code"
+    "app-cleaner"
+    "teamviewer"
+    "ollama"
+    "zipic"
+    "picgo"
 )
 
 # 逐个检查并安装软件
