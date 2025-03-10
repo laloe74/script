@@ -33,6 +33,7 @@ software_list=(
     "ollama"
     "zipic"
     "picgo"
+    "btop"
 )
 
 # 逐个检查并安装软件
