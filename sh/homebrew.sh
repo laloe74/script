@@ -34,6 +34,7 @@ software_list=(
     "zipic"
     "picgo"
     "btop"
+    "orbstack"
 )
 
 # 逐个检查并安装软件
